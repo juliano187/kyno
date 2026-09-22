@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KynnonNet — Internet Fibra Óptica</title>
+<!-- Tags Open Graph Primárias -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kynnonnet.com.br/">
+<meta property="og:title" content="KynnonNet-internet>
+<meta property="og:description" content="Internet fibra óptica 100% dedicada, sem franquia, com suporte humano 24/7. Cobertura em Tamandaré e Araucária.">
+<meta property="og:image" content="kynnonnet.webp">
+<meta name="description" content="Internet fibra óptica 100% dedicada, sem franquia, com suporte humano 24/7. Cobertura em Tamandaré e Araucária.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+        },
+        colors: {
+          base: '#0b0f19',
+          elev: '#10151f',
+          line: 'rgba(255,255,255,0.09)',
+          ice: '#00f2fe',
+          sky: '#4facfe',
+          violet: '#7f00ff',
+          lime: '#00f260',
+        },
+      }
+    }
+  }
+</script>
+<style>
+  :root{
+    --bg:#0b0f19;
+    --grad-blue: linear-gradient(120deg,#00E224 0%, #4facfe 100%);
+    --grad-violet: linear-gradient(120deg,#7f00ff 0%, #00E224 100%);
+    --grad-lime: linear-gradient(120deg,#00E224 0%, #17d0d9 100%);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html{ scroll-behavior:smooth; scroll-padding-top: calc(84px + env(safe-area-inset-top,0px)); }
+  body{
+    background: var(--bg);
+    color:#e7ecf5;
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4, .font-display{ font-family:'Space Grotesk', sans-serif; }
+
+  ::selection{ background:#00f260; color:#03130a; }
+
+  /* subtle grid texture */
+  .grid-texture{
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 90%);
+  }
+
+  .glass{
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.09);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .text-gradient-blue{
+    background: var(--grad-blue);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .text-gradient-violet{
+    background: var(--grad-violet);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  .btn-cta{
+    background: var(--grad-lime);
+    color:#04140c;
+    font-weight:700;
+    box-shadow: 0 10px 30px -8px rgba(0,242,96,0.55);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .btn-cta:hover{ transform: translateY(-2px); box-shadow: 0 16px 36px -6px rgba(0,242,96,0.65); }
+  .btn-cta:active{ transform: translateY(0); }
+
+  .btn-outline{
+    border:1px solid rgba(255,255,255,0.18);
+    color:#e7ecf5;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .btn-outline:hover{ border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.06); }
+
+  .glow-blob{
+    position:absolute; border-radius:9999px; filter: blur(90px); opacity:.45; pointer-events:none;
+  }
+
+  /* scroll reveal */
+  .reveal{ opacity:0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.is-visible{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* plan card highlight */
+  .plan-popular{
+    border-image: linear-gradient(120deg,#00f2fe,#7f00ff) 1;
+    box-shadow: 0 0 0 1px rgba(127,0,255,0.35), 0 30px 60px -20px rgba(79,172,254,0.35);
+  }
+
+  /* fiber lines animation (hero) */
+  .fiber-line{ stroke-dasharray: 6 10; animation: dash 14s linear infinite; }
+  @keyframes dash{ to{ stroke-dashoffset: -300; } }
+  @media (prefers-reduced-motion: reduce){ .fiber-line{ animation:none; } }
+
+  /* drawer */
+  #drawer{ transform: translateX(100%); transition: transform .38s cubic-bezier(.16,.84,.44,1); }
+  #drawer.open{ transform: translateX(0); }
+  #overlay{ opacity:0; pointer-events:none; transition: opacity .3s ease; }
+  #overlay.open{ opacity:1; pointer-events:auto; }
+
+  /* accordion */
+  .faq-panel{ max-height:0; overflow:hidden; transition: max-height .38s ease; }
+  .faq-chevron{ transition: transform .3s ease; }
+  .faq-item[data-open="true"] .faq-chevron{ transform: rotate(180deg); }
+
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:#0b0f19; }
+  ::-webkit-scrollbar-thumb{ background:#22293a; border-radius:8px; }
+
+  .focus-ring:focus-visible{ outline:2px solid #4facfe; outline-offset:3px; border-radius:6px; }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ============ HEADER ============ -->
+<header id="site-header" class="fixed top-0 inset-x-0 z-50" style="padding-top: env(safe-area-inset-top,0px);">
+  <div class="mx-3 sm:mx-6 mt-3">
+    <div class="max-w-7xl mx-auto glass rounded-2xl px-4 sm:px-6 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#top" class="flex items-center gap-2.5 focus-ring">
+        <img src="logo.webp" width="60">
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden lg:flex items-center gap-8 font-medium text-sm text-white/80">
+        <a href="#planos" class="hover:text-white transition-colors focus-ring">Planos</a>
+        <a href="#cobertura" class="hover:text-white transition-colors focus-ring">Cobertura</a>
+        <a href="#beneficios" class="hover:text-white transition-colors focus-ring">Benefícios</a>
+        <a href="#sobre" class="hover:text-white transition-colors focus-ring">Sobre nós</a>
+        <a href="#contato" class="hover:text-white transition-colors focus-ring">Contato</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="#planos" class="hidden md:inline-flex items-center btn-cta text-sm px-4 py-2 rounded-full focus-ring">Assinar agora</a>
+        <!-- Hamburger (mobile + desktop trigger) -->
+        <button id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="drawer"
+          class="w-11 h-11 rounded-xl glass grid place-items-center focus-ring">
+          <svg id="icon-burger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Overlay -->
+<div id="overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"></div>
+
+<!-- Drawer menu -->
+<aside id="drawer" class="fixed top-0 right-0 z-50 h-full w-full sm:w-[400px] glass border-l border-white/10 flex flex-col"
+  style="padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px);">
+  <div class="flex items-center justify-between px-6 h-16 border-b border-white/10">
+    <span class="font-display font-700 text-white">Menu</span>
+    <button id="close-drawer" aria-label="Fechar menu" class="w-10 h-10 rounded-xl grid place-items-center hover:bg-white/10 focus-ring">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+
+  <div class="px-6 py-6 overflow-y-auto flex-1">
+    <p class="text-xs uppercase tracking-wide text-white/40 mb-3 font-medium">Central do assinante</p>
+    <div class="grid grid-cols-1 gap-3 mb-8">
+      <a href="https://kynnonnet.beesweb.com.br/" target="_blank" rel="noopener"
+        class="group flex items-center gap-3 rounded-xl px-4 py-3.5 border border-white/10 hover:border-ice/50 transition-colors" style="background:linear-gradient(120deg, rgba(0,242,254,0.14), rgba(127,0,255,0.10));">
+        <span class="w-10 h-10 rounded-lg grid place-items-center shrink-0" style="background:var(--grad-blue)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04121c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/><circle cx="19" cy="6" r="2.1"/><path d="M19 4.2v.1M19 7.7v.1M17.4 6h.1M20.5 6h.1"/></svg>
+        </span>
+        <span class="flex-1">
+          <span class="block font-semibold text-white leading-tight">Central Tamandaré</span>
+          <span class="block text-xs text-white/55">Área do assinante da cidade</span>
+        </span>
+        <svg class="text-white/40 group-hover:text-white transition-colors" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+
+      <a href="https://kynnonnetcapela.beesweb.com.br/" target="_blank" rel="noopener"
+        class="group flex items-center gap-3 rounded-xl px-4 py-3.5 border border-white/10 hover:border-violet/50 transition-colors" style="background:linear-gradient(120deg, rgba(127,0,255,0.14), rgba(0,242,254,0.10));">
+        <span class="w-10 h-10 rounded-lg grid place-items-center shrink-0" style="background:var(--grad-violet)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f5f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/><circle cx="19" cy="6" r="2.1"/><path d="M19 4.2v.1M19 7.7v.1M17.4 6h.1M20.5 6h.1"/></svg>
+        </span>
+        <span class="flex-1">
+          <span class="block font-semibold text-white leading-tight">Central Araucária</span>
+          <span class="block text-xs text-white/55">Área do assinante da cidade</span>
+        </span>
+        <svg class="text-white/40 group-hover:text-white transition-colors" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <p class="text-xs uppercase tracking-wide text-white/40 mb-3 font-medium">Navegação</p>
+    <nav class="flex flex-col divide-y divide-white/8 text-white/85 font-medium">
+      <a href="#planos" class="drawer-link py-3.5 flex items-center justify-between hover:text-white focus-ring">Planos <span class="text-white/30">→</span></a>
+      <a href="#cobertura" class="drawer-link py-3.5 flex items-center justify-between hover:text-white focus-ring">Cobertura <span class="text-white/30">→</span></a>
+      <a href="#beneficios" class="drawer-link py-3.5 flex items-center justify-between hover:text-white focus-ring">Benefícios <span class="text-white/30">→</span></a>
+      <a href="#sobre" class="drawer-link py-3.5 flex items-center justify-between hover:text-white focus-ring">Sobre nós <span class="text-white/30">→</span></a>
+      <a href="#contato" class="drawer-link py-3.5 flex items-center justify-between hover:text-white focus-ring">Contato <span class="text-white/30">→</span></a>
+    </nav>
+  </div>
+
+  <div class="px-6 py-5 border-t border-white/10">
+    <a href="#planos" class="drawer-link btn-cta w-full flex items-center justify-center rounded-full py-3 font-semibold focus-ring">Ver planos disponíveis</a>
+  </div>
+</aside>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="relative pt-40 pb-28 sm:pt-48 sm:pb-36 px-6 overflow-hidden">
+    <div class="glow-blob w-[520px] h-[520px] -top-40 -left-40" style="background:#00f2fe;"></div>
+    <div class="glow-blob w-[480px] h-[480px] top-20 right-[-160px]" style="background:#7f00ff;"></div>
+    <div class="absolute inset-0 grid-texture"></div>
+
+    <!-- animated fiber lines -->
+    <svg class="absolute inset-0 w-full h-full opacity-30" preserveAspectRatio="none" viewBox="0 0 1200 600">
+      <path class="fiber-line" d="M-50 460 C 250 380, 450 520, 700 420 S 1150 300, 1260 380" stroke="#4facfe" stroke-width="1.4" fill="none"/>
+      <path class="fiber-line" d="M-50 340 C 280 420, 500 260, 760 340 S 1120 460, 1260 320" stroke="#7f00ff" stroke-width="1.2" fill="none" style="animation-duration:18s;"/>
+      <path class="fiber-line" d="M-50 200 C 300 140, 520 260, 780 190 S 1100 120, 1260 200" stroke="#00f260" stroke-width="1" fill="none" style="animation-duration:22s;"/>
+    </svg>
+
+    <div class="relative max-w-4xl mx-auto text-center">
+      <div class="reveal inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs sm:text-sm text-white/75 mb-7">
+        <span class="w-2 h-2 rounded-full" style="background:var(--grad-lime)"></span>
+        Rede 100% própria em Tamandaré e Araucária
+      </div>
+
+      <h1 class="reveal font-display font-700 text-4xl sm:text-6xl leading-[1.08] tracking-tight text-white">
+        KynnonNet Fibra Óptica <span class="text-gradient-blue">100% Dedicada</span> para sua Casa
+      </h1>
+
+      <p class="reveal mt-6 text-white/65 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+        Velocidade estável do primeiro ao último byte, sem divisão de sinal com vizinhos e sem letras miúdas.
+        Conecte sua casa a uma rede pensada para streaming, home office e games — sem trava.
+      </p>
+
+      <div class="reveal mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#planos" class="btn-cta px-8 py-3.5 rounded-full text-base focus-ring">Ver planos disponíveis</a>
+        
+      </div>
+
+      <div class="reveal mt-14 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
+  <div class="glass rounded-full px-5 py-2.5 flex items-center justify-center gap-2 text-sm text-white/80 w-full">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+    <span class="text-center">Ultra velocidade</span>
+  </div>
+  
+  <div class="glass rounded-full px-5 py-2.5 flex items-center justify-center gap-2 text-sm text-white/80 w-full">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f260" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    <span class="text-center">Sem franquia de dados</span>
+  </div>
+  
+  <div class="glass rounded-full px-5 py-2.5 flex items-center justify-center gap-2 text-sm text-white/80 w-full">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7f00ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg>
+    <span class="text-center">Wi-Fi incluso</span>
+  </div>
+</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLANOS ============ -->
+  <section id="planos" class="relative px-6 py-24 sm:py-28">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal text-center max-w-2xl mx-auto mb-16">
+        <h2 class="font-display font-700 text-3xl sm:text-4xl text-white">Escolha o plano que acompanha seu ritmo</h2>
+        <p class="mt-4 text-white/60">Preços fixos, sem pegadinha. Instalação rápida e Wi-Fi  incluso em todos os planos.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+
+        <!-- Plano 100 -->
+        <div class="reveal glass rounded-3xl p-8 flex flex-col">
+          <p class="text-white/60 font-medium">Para o dia a dia</p>
+          <h3 class="font-display font-700 text-2xl text-white mt-1">100 Mega</h3>
+          <div class="mt-6 flex items-end gap-1">
+            <span class="text-sm text-white/50 mb-1">R$</span>
+            <span class="font-display font-700 text-5xl text-white">79</span>
+            <span class="text-white/50 mb-1">,90/mês</span>
+          </div>
+          <ul class="mt-8 space-y-3.5 text-sm text-white/75 flex-1">
+            <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>100 Mbps de velocidade</li>
+            <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Wi-Fi grátis</li>
+            <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Instalação em até 24h</li>
+            <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sem fidelidade obrigatória</li>
+            <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Suporte humano 24/7</li>
+          </ul>
+          <a href="#contato" class="btn-outline mt-8 rounded-full py-3 text-center font-semibold focus-ring">Contratar agora</a>
+        </div>
+
+        <!-- Plano 200 - popular -->
+        <div class="reveal relative rounded-3xl p-[1.5px] plan-popular md:-translate-y-3">
+          <div class="rounded-3xl h-full glass p-8 flex flex-col relative overflow-hidden">
+            <span class="absolute top-0 right-0 text-xs font-semibold px-4 py-1.5 rounded-bl-2xl rounded-tr-3xl text-[#04121c]" style="background:var(--grad-blue)">Mais popular</span>
+            <p class="text-white/60 font-medium">Para famílias conectadas</p>
+            <h3 class="font-display font-700 text-2xl text-white mt-1">200 Mega</h3>
+            <div class="mt-6 flex items-end gap-1">
+              <span class="text-sm text-white/50 mb-1">R$</span>
+              <span class="font-display font-700 text-5xl text-white">89</span>
+              <span class="text-white/50 mb-1">,90/mês</span>
+            </div>
+            <ul class="mt-8 space-y-3.5 text-sm text-white/80 flex-1">
+              <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4facfe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>200 Mbps de velocidade</li>
+              <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4facfe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Wi-Fi grátis</li>
+              <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4facfe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Instalação em até 24h</li>
+              <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4facfe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>App de gestão da conexão</li>
+              <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4facfe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Suporte humano 24/7 prioritário</li>
+            </ul>
+            <a href="#contato" class="btn-cta mt-8 rounded-full py-3 text-center font-semibold focus-ring">Contratar agora</a>
+          </div>
+        </div>
+
+        <!-- Plano 400 Giga -->
+        <div class="reveal glass rounded-3xl p-8 flex flex-col">
+          <p class="text-white/60 font-medium">Para quem exige o máximo</p>
+          <h3 class="font-display font-700 text-2xl text-white mt-1">400 Mega</h3>
+          <div class="mt-6 flex items-end gap-1">
+            <span class="text-sm text-white/50 mb-1">R$</span>
+            <span class="font-display font-700 text-5xl text-white">99</span>
+            <span class="text-white/50 mb-1">,90/mês</span>
+          </div>
+          <ul class="mt-8 space-y-3.5 text-sm text-white/75 flex-1">
+            <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7f00ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>400 Mbps de velocidade</li>
+            <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7f00ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Wi-Fi  grátis (dual band)</li>
+            <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7f00ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Instalação prioritária em 24h</li>
+            <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7f00ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>IP dedicado sob consulta</li>
+            <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7f00ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Suporte humano 24/7 VIP</li>
+          </ul>
+          <a href="#contato" class="btn-outline mt-8 rounded-full py-3 text-center font-semibold focus-ring">Contratar agora</a>
+        </div>
+
+      </div>
+      <p class="reveal text-center text-white/40 text-xs mt-8">Valores para novas adesões, sujeitos à viabilidade técnica no endereço. Velocidade em megabits por segundo (Mbps).</p>
+    </div>
+  </section>
+
+  <!-- ============ COBERTURA ============ -->
+  <section id="cobertura" class="relative px-6 py-24 sm:py-28 border-y border-white/5" style="background:linear-gradient(180deg, transparent, rgba(127,0,255,0.05), transparent);">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal text-center max-w-2xl mx-auto mb-14">
+        <h2 class="font-display font-700 text-3xl sm:text-4xl text-white">Uma rede local, feita para ser rápida</h2>
+        <p class="mt-4 text-white/60">Por atendermos apenas Tamandaré e Araucária, cada ponto de rede fica perto de você — menos salto de tráfego, mais estabilidade.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="reveal glass rounded-3xl p-8 relative overflow-hidden">
+          <div class="glow-blob w-64 h-64 -top-20 -right-20" style="background:#00f2fe; opacity:.25;"></div>
+          <span class="w-12 h-12 rounded-2xl grid place-items-center mb-6 relative" style="background:var(--grad-blue)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#04121c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          </span>
+          <h3 class="font-display font-700 text-2xl text-white relative">Tamandaré</h3>
+          <p class="mt-3 text-white/60 text-sm leading-relaxed relative">Backbone próprio já ativo em bairros centrais e em expansão contínua pela cidade. Confira a disponibilidade no seu endereço com nosso time.</p>
+          <a href="#contato" class="relative inline-flex items-center gap-1.5 mt-6 text-sm font-semibold text-white hover:text-ice transition-colors focus-ring">Consultar cobertura em Tamandaré <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
+        </div>
+
+        <div class="reveal glass rounded-3xl p-8 relative overflow-hidden">
+          <div class="glow-blob w-64 h-64 -top-20 -right-20" style="background:#7f00ff; opacity:.25;"></div>
+          <span class="w-12 h-12 rounded-2xl grid place-items-center mb-6 relative" style="background:var(--grad-violet)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f5f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          </span>
+          <h3 class="font-display font-700 text-2xl text-white relative">Araucária</h3>
+          <p class="mt-3 text-white/60 text-sm leading-relaxed relative">Rede em fibra chegando a mais quarteirões toda semana, com equipe técnica local para instalações e manutenção rápidas.</p>
+          <a href="#contato" class="relative inline-flex items-center gap-1.5 mt-6 text-sm font-semibold text-white hover:text-violet transition-colors focus-ring">Consultar cobertura em Araucária <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BENEFÍCIOS ============ -->
+  <section id="beneficios" class="relative px-6 py-24 sm:py-28">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal text-center max-w-2xl mx-auto mb-16">
+        <h2 class="font-display font-700 text-3xl sm:text-4xl text-white">Por que escolher a NovaFibra</h2>
+        <p class="mt-4 text-white/60">Detalhes que fazem diferença no dia a dia da sua conexão.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="reveal glass rounded-2xl p-7">
+          <span class="w-11 h-11 rounded-xl grid place-items-center mb-5" style="background:rgba(0,242,254,0.12); border:1px solid rgba(0,242,254,0.3);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+          </span>
+          <h3 class="font-display font-600 text-lg text-white">Fibra pura, ponta a ponta</h3>
+          <p class="mt-2.5 text-sm text-white/60 leading-relaxed">Sem trechos de cobre no caminho. O sinal chega íntegro da nossa central até o roteador da sua casa.</p>
+        </div>
+
+        <div class="reveal glass rounded-2xl p-7">
+          <span class="w-11 h-11 rounded-xl grid place-items-center mb-5" style="background:rgba(127,0,255,0.12); border:1px solid rgba(127,0,255,0.3);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a259ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 15a8.5 8.5 0 1 0-16.8 0"/><path d="M12 12v5"/><circle cx="12" cy="19" r="1.4"/></svg>
+          </span>
+          <h3 class="font-display font-600 text-lg text-white">Suporte humano 24/7</h3>
+          <p class="mt-2.5 text-sm text-white/60 leading-relaxed">Chega de robô repetindo menu. Você fala com uma pessoa da nossa equipe a qualquer hora, todos os dias.</p>
+        </div>
+
+        <div class="reveal glass rounded-2xl p-7">
+          <span class="w-11 h-11 rounded-xl grid place-items-center mb-5" style="background:rgba(0,242,96,0.12); border:1px solid rgba(0,242,96,0.3);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f260" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h4M6 14h8"/></svg>
+          </span>
+          <h3 class="font-display font-600 text-lg text-white">Latência baixa para games</h3>
+          <p class="mt-2.5 text-sm text-white/60 leading-relaxed">Rota curta e enlace dedicado reduzem o ping — sua vantagem em partidas competitivas.</p>
+        </div>
+
+        <div class="reveal glass rounded-2xl p-7">
+          <span class="w-11 h-11 rounded-xl grid place-items-center mb-5" style="background:rgba(0,242,254,0.12); border:1px solid rgba(0,242,254,0.3);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+          </span>
+          <h3 class="font-display font-600 text-lg text-white">Instalação em até 24h</h3>
+          <p class="mt-2.5 text-sm text-white/60 leading-relaxed">Equipe técnica própria e local — agendamento rápido, sem espera de semanas.</p>
+        </div>
+
+        <div class="reveal glass rounded-2xl p-7">
+          <span class="w-11 h-11 rounded-xl grid place-items-center mb-5" style="background:rgba(127,0,255,0.12); border:1px solid rgba(127,0,255,0.3);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a259ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg>
+          </span>
+          <h3 class="font-display font-600 text-lg text-white">Wi-Fi 6 em todos os planos</h3>
+          <p class="mt-2.5 text-sm text-white/60 leading-relaxed">Roteador moderno incluso, com mais alcance e capacidade para vários dispositivos conectados.</p>
+        </div>
+
+        <div class="reveal glass rounded-2xl p-7">
+          <span class="w-11 h-11 rounded-xl grid place-items-center mb-5" style="background:rgba(0,242,96,0.12); border:1px solid rgba(0,242,96,0.3);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f260" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v5c0 4.5 3.4 7.7 8 9 4.6-1.3 8-4.5 8-9V7z"/></svg>
+          </span>
+          <h3 class="font-display font-600 text-lg text-white">Sem fidelidade abusiva</h3>
+          <p class="mt-2.5 text-sm text-white/60 leading-relaxed">Condições claras desde a contratação — você decide continuar pela qualidade, não pela obrigação.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOBRE NÓS ============ -->
+  <section id="sobre" class="relative px-6 py-24 sm:py-28 border-y border-white/5">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-5 gap-12 items-center">
+      <div class="md:col-span-2 reveal">
+        <div class="relative aspect-square rounded-3xl glass grid place-items-center overflow-hidden">
+          <div class="glow-blob w-56 h-56" style="background:#4facfe;"></div>
+          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="url(#g1)" stroke-width="1.4" class="relative">
+            <defs><linearGradient id="g1" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#7f00ff"/></linearGradient></defs>
+            <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6.2"/><circle cx="12" cy="12" r="2.2" fill="url(#g1)" stroke="none"/>
+          </svg>
+        </div>
+      </div>
+      <div class="md:col-span-3 reveal">
+        <h2 class="font-display font-700 text-3xl sm:text-4xl text-white">Nascemos para conectar nossa própria vizinhança</h2>
+        <p class="mt-5 text-white/65 leading-relaxed">A NovaFibra é uma provedora local, construída para atender bem Tamandaré e Araucária — não o Brasil inteiro. Isso significa uma rede mais enxuta, técnicos que conhecem sua rua e decisões tomadas por quem realmente usa a internet da região.</p>
+        <p class="mt-4 text-white/65 leading-relaxed">Investimos em fibra óptica de ponta a ponta e em uma equipe de suporte própria, porque acreditamos que internet boa é aquela que você esquece que existe — porque simplesmente funciona.</p>
+        <div class="mt-8 grid grid-cols-3 gap-4 text-center">
+          <div>
+            <p class="font-display font-700 text-3xl text-gradient-blue">2</p>
+            <p class="text-xs text-white/50 mt-1">Cidades atendidas</p>
+          </div>
+          <div>
+            <p class="font-display font-700 text-3xl text-gradient-blue">24/7</p>
+            <p class="text-xs text-white/50 mt-1">Suporte humano</p>
+          </div>
+          <div>
+            <p class="font-display font-700 text-3xl text-gradient-blue">24h</p>
+            <p class="text-xs text-white/50 mt-1">Prazo de instalação</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq" class="relative px-6 py-24 sm:py-28">
+    <div class="max-w-3xl mx-auto">
+      <div class="reveal text-center mb-14">
+        <h2 class="font-display font-700 text-3xl sm:text-4xl text-white">Perguntas frequentes</h2>
+        <p class="mt-4 text-white/60">Não achou sua dúvida aqui? Fale com a gente na seção de contato.</p>
+      </div>
+
+      <div class="space-y-3" id="faq-list">
+
+        <div class="faq-item reveal glass rounded-2xl overflow-hidden" data-open="false">
+          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring">
+            <span class="font-medium text-white">Vocês atendem só Tamandaré e Araucária?</span>
+            <svg class="faq-chevron shrink-0 text-white/50" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel px-6">
+            <p class="pb-5 text-sm text-white/60 leading-relaxed">Sim. Somos uma provedora local e focamos toda a nossa infraestrutura e equipe técnica nessas duas cidades, o que nos permite manter a rede rápida e o suporte próximo do cliente.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal glass rounded-2xl overflow-hidden" data-open="false">
+          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring">
+            <span class="font-medium text-white">A velocidade contratada é garantida o tempo todo?</span>
+            <svg class="faq-chevron shrink-0 text-white/50" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel px-6">
+            <p class="pb-5 text-sm text-white/60 leading-relaxed">Nossos planos são de fibra dedicada, sem compartilhamento com vizinhos no trecho de acesso. A velocidade pode variar conforme fatores externos ao provedor, como o dispositivo, o Wi-Fi do ambiente e o servidor de destino, mas nossa rede é dimensionada para entregar o contratado.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal glass rounded-2xl overflow-hidden" data-open="false">
+          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring">
+            <span class="font-medium text-white">Quanto tempo leva para instalar?</span>
+            <svg class="faq-chevron shrink-0 text-white/50" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel px-6">
+            <p class="pb-5 text-sm text-white/60 leading-relaxed">Em áreas com rede já ativa, a instalação costuma ocorrer em até 24 horas após a confirmação do plano e a checagem de viabilidade técnica no endereço.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal glass rounded-2xl overflow-hidden" data-open="false">
+          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring">
+            <span class="font-medium text-white">Existe fidelidade ou multa por cancelamento?</span>
+            <svg class="faq-chevron shrink-0 text-white/50" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel px-6">
+            <p class="pb-5 text-sm text-white/60 leading-relaxed">As condições comerciais são apresentadas de forma clara no momento da contratação. Quando há comodato de equipamento, pode existir uma carência mínima — nossa equipe explica tudo antes de você assinar.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal glass rounded-2xl overflow-hidden" data-open="false">
+          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-ring">
+            <span class="font-medium text-white">Como funciona o suporte técnico 24/7?</span>
+            <svg class="faq-chevron shrink-0 text-white/50" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel px-6">
+            <p class="pb-5 text-sm text-white/60 leading-relaxed">Você fala com uma pessoa da nossa equipe por telefone, WhatsApp ou pela Central do Assinante da sua cidade, a qualquer hora do dia, todos os dias da semana.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTATO / CTA FINAL ============ -->
+  <section id="contato" class="relative px-6 py-24 sm:py-28">
+    <div class="max-w-4xl mx-auto reveal">
+      <div class="relative rounded-[2rem] glass p-10 sm:p-14 text-center overflow-hidden">
+        <div class="glow-blob w-72 h-72 -bottom-24 -left-20" style="background:#00f260;"></div>
+        <div class="glow-blob w-72 h-72 -top-24 -right-20" style="background:#7f00ff;"></div>
+        <h2 class="relative font-display font-700 text-3xl sm:text-4xl text-white">Pronto para uma internet que não te decepciona?</h2>
+        <p class="relative mt-4 text-white/65 max-w-xl mx-auto">Fale agora com nossa equipe comercial e descubra o plano ideal para o seu endereço em Tamandaré ou Araucária.</p>
+        <div class="relative mt-9 flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="https://wa.me/5541997169772" target="_blank" rel="noopener" class="btn-cta px-8 py-3.5 rounded-full text-base focus-ring inline-flex items-center gap-2 justify-center">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.44 5.13L2 22l5.11-1.54a9.85 9.85 0 0 0 4.93 1.32h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.06h-.01a8.14 8.14 0 0 1-4.16-1.14l-.3-.18-3.03.92.92-2.95-.2-.31a8.1 8.1 0 0 1-1.24-4.3c0-4.48 3.65-8.13 8.14-8.13 2.17 0 4.21.85 5.75 2.38a8.06 8.06 0 0 1 2.38 5.75c0 4.48-3.65 8.13-8.14 8.13Zm4.46-6.09c-.24-.12-1.44-.71-1.66-.79-.22-.08-.39-.12-.55.12-.16.24-.63.79-.78.95-.14.16-.28.18-.53.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42-.14 0-.3-.02-.46-.02-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.03s.87 2.36.99 2.52c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg>
+            Falar no WhatsApp
+          </a>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="relative border-t border-white/8 px-6 pt-16 pb-8" style="padding-bottom: calc(2rem + env(safe-area-inset-bottom,0px));">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-10 pb-12">
+
+      <div class="lg:col-span-2">
+        <a href="#top" class="flex items-center gap-2.5 mb-4 focus-ring">
+         <img src="logo.webp" width="60">
+        </a>
+        <p class="text-sm text-white/50 leading-relaxed max-w-xs">Internet fibra óptica dedicada, com rede própria e suporte humano 24/7 em Tamandaré e Araucária.</p>
+        <div class="flex items-center gap-3 mt-6">
+          <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-lg glass grid place-items-center hover:border-white/30 focus-ring">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-lg glass grid place-items-center hover:border-white/30 focus-ring">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 9h3V6h-3a4 4 0 0 0-4 4v2H8v3h2v6h3v-6h3l1-3h-4v-2a1 1 0 0 1 1-1Z"/></svg>
+          </a>
+          <a href="https://wa.me/5541997169772 " target="_blank" rel="noopener" aria-label="WhatsApp" class="w-9 h-9 rounded-lg glass grid place-items-center hover:border-white/30 focus-ring">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.44 5.13L2 22l5.11-1.54a9.85 9.85 0 0 0 4.93 1.32h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Z" opacity=".001"/><path d="M17.47 14.38c-.24-.12-1.44-.71-1.66-.79-.22-.08-.39-.12-.55.12-.16.24-.63.79-.78.95-.14.16-.28.18-.53.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42-.14 0-.3-.02-.46-.02-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.03s.87 2.36.99 2.52c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28ZM12.04 21.06h-.01a8.14 8.14 0 0 1-4.16-1.14l-.3-.18-3.03.92.92-2.95-.2-.31a8.1 8.1 0 0 1-1.24-4.3c0-4.48 3.65-8.13 8.14-8.13 2.17 0 4.21.85 5.75 2.38a8.06 8.06 0 0 1 2.38 5.75c0 4.48-3.65 8.13-8.14 8.13Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <p class="font-display font-600 text-white mb-4 text-sm">Empresa</p>
+        <ul class="space-y-2.5 text-sm text-white/55">
+          <li><a href="#sobre" class="hover:text-white transition-colors focus-ring">Sobre nós</a></li>
+          <li><a href="#beneficios" class="hover:text-white transition-colors focus-ring">Benefícios</a></li>
+          <li><a href="#cobertura" class="hover:text-white transition-colors focus-ring">Cobertura</a></li>
+          <li><a href="#contato" class="hover:text-white transition-colors focus-ring">Trabalhe conosco</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="font-display font-600 text-white mb-4 text-sm">Planos</p>
+        <ul class="space-y-2.5 text-sm text-white/55">
+          <li><a href="#planos" class="hover:text-white transition-colors focus-ring">100 Mega</a></li>
+          <li><a href="#planos" class="hover:text-white transition-colors focus-ring">200 Mega</a></li>
+          <li><a href="#planos" class="hover:text-white transition-colors focus-ring">400 Mega</a></li>
+          <li><a href="#faq" class="hover:text-white transition-colors focus-ring">Dúvidas frequentes</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="font-display font-600 text-white mb-4 text-sm">Central do assinante</p>
+        <ul class="space-y-2.5 text-sm text-white/55">
+          <li><a href="https://centraldoassinante.exemplo.com/tamandare" target="_blank" rel="noopener" class="hover:text-white transition-colors focus-ring">Central Tamandaré</a></li>
+          <li><a href="https://centraldoassinante.exemplo.com/araucaria" target="_blank" rel="noopener" class="hover:text-white transition-colors focus-ring">Central Araucária</a></li>
+          <li><a href="tel:+554130000000" class="hover:text-white transition-colors focus-ring">(41)99716-9772 </a></li>
+          <li><a href="mailto:contato@novafibra.exemplo.com" class="hover:text-white transition-colors focus-ring">@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-white/8 pt-6 flex flex-col md:flex-row items-center justify-between gap-5">
+      <p class="text-xs text-white/40 text-center md:text-left">© 2026 NovaFibra Telecom Ltda. CNPJ 00.000.000/0001-00. Todos os direitos reservados.</p>
+
+      <div class="flex items-center gap-2.5 opacity-70">
+        <span class="text-[10px] text-white/40 mr-1">Pagamento:</span>
+        <span class="glass rounded-md px-2.5 py-1.5 text-[10px] font-semibold text-white/70">Pix</span>
+        <span class="glass rounded-md px-2.5 py-1.5 text-[10px] font-semibold text-white/70">Boleto</span>
+        <span class="glass rounded-md px-2.5 py-1.5 text-[10px] font-semibold text-white/70">Cartão</span>
+      </div>
+    </div>
+    <p class="text-[11px] text-white/30 mt-5 leading-relaxed max-w-3xl">Velocidades comercializadas em Mbps, medidas na interface do ativo de rede, sujeitas às normas de qualidade da Anatel. A velocidade real pode variar conforme o dispositivo do usuário, o roteador Wi-Fi e fatores externos à rede do provedor.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const menuBtn = document.getElementById('menu-btn');
+  const closeBtn = document.getElementById('close-drawer');
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('overlay');
+  const drawerLinks = document.querySelectorAll('.drawer-link');
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    menuBtn.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+  menuBtn.addEventListener('click', () => {
+    drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+  });
+  closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  drawerLinks.forEach(l => l.addEventListener('click', closeDrawer));
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeDrawer(); });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-toggle');
+    const panel = item.querySelector('.faq-panel');
+    btn.addEventListener('click', () => {
+      const isOpen = item.getAttribute('data-open') === 'true';
+      // close all others
+      document.querySelectorAll('.faq-item').forEach(other => {
+        if(other !== item){
+          other.setAttribute('data-open','false');
+          other.querySelector('.faq-panel').style.maxHeight = null;
+        }
+      });
+      if(isOpen){
+        item.setAttribute('data-open','false');
+        panel.style.maxHeight = null;
+      } else {
+        item.setAttribute('data-open','true');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+
+  // Header background on scroll
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    // no-op hook reserved for future scroll-based header styling
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
